@@ -18,7 +18,7 @@ async function main() {
     await mongoose.connect(mongoDB);
 };
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 app.use('/api', indexRouter);
 
