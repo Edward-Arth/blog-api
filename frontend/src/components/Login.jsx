@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import { redirect } from "react-router-dom";
 
-const Signup = () => {
+const Login = () => {
 
     const [formData, setFormData] = useState({
         username: '',
@@ -20,7 +20,7 @@ const Signup = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('localhost:8000/api/signup', {
+            const response = await fetch('localhost:8000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const Signup = () => {
 
             if(response.ok) {
                 console.log("Success!!");
-                return redirect("/api/login");
+                return redirect("/api");
             } else {
                 console.log(response);
             }
@@ -42,7 +42,7 @@ const Signup = () => {
     return (
         <div className="signupCon">
             <BasicHeader/>
-            <div className="signupTitle">Sign up!</div>
+            <div className="signupTitle">Log in!</div>
             <div className="formCon">
                 <Form onSubmit ={handleSubmit}>
                     <Form.Group className="mb-3" controlId="userSignup.ControlInput1">
@@ -60,4 +60,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default Login;

@@ -31,7 +31,7 @@
 }
 
 .formCon {
-    margin-top: 60px;
+    margin-top: 40px;
     margin-left: 35%;
     margin-right: 35%;
     outline-style: solid;
@@ -42,4 +42,10 @@
 .subButt {
     display:flex;
     justify-content: center;
+}
+
+.signupTitle {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 150%;
 }

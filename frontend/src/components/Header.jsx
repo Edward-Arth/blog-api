@@ -12,7 +12,7 @@ const BasicHeader = () => {
                 <Link to="/api/posts" className="headerButts">
                     <Nav.Link>Posts</Nav.Link>
                 </Link>
-                <Link to="/api/users" className="headerButts">
+                <Link to="/api/authors" className="headerButts">
                     <Nav.Link>Authors</Nav.Link>
                 </Link>
               </Nav>

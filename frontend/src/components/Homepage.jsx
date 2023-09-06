@@ -14,7 +14,9 @@ const Homepage = () => {
                         <Link to="/api/signup">
                             <Button variant="dark" className="homeButts"><Link to="/api/signup"/>Sign up</Button>
                         </Link>
+                        <Link to="/api/login">
                         <Button variant="dark" className="homeButts">Log in</Button>
+                        </Link>
                     </div>
                 </div>
             </div>
