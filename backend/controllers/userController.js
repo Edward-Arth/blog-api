@@ -2,6 +2,8 @@ const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+require('dotenv').config();
+const jwt = require("jsonwebtoken");
 
 exports.user_signup_post = [
     body('username')
@@ -42,3 +44,32 @@ exports.user_signup_post = [
         };
     })
 ];
+
+exports.user_login_post = (async(req, res) => {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username: username });
+    if (user) {
+        const match = await bcrypt.compare(password, user.password);
+        if (match) {
+            const token = jwt.sign({ id: user.id }, process.env.TOKENKEY, { expiresIn: '1h' });
+            res.json({ token });
+        } else {
+            res.status(401).json({ message: 'No login match' });
+        }
+    } else {
+        res.status(401).json({ message: 'No login match' });
+    }
+});
+
+exports.user_list_get = async (req, res) => {
+    try {
+        const userList = await User.find({}, { _id: 0, username: 1 })
+            .sort({ name: 1 })
+            .populate("posts")
+            .exec();
+        res.json({ userList });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: 'Server Error' });
+    }
+};
