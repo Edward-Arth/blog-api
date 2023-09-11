@@ -2,9 +2,11 @@ import BasicHeader from "./Header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+    const history = useNavigate();
 
     const [formData, setFormData] = useState({
         username: '',
@@ -20,7 +22,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('localhost:8000/api/login', {
+            const response = await fetch(import.meta.env.VITE_APIKEY + "login", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,8 +31,14 @@ const Login = () => {
             });
 
             if(response.ok) {
-                console.log("Success!!");
-                return redirect("/api");
+                response.json().then(data => {
+                    if (data && data.token) {
+                        localStorage.setItem('token', data.token);
+                        history('/api/posts');
+                    } else {
+                        console.log("Data missing!")
+                    }
+                })
             } else {
                 console.log(response);
             }
@@ -47,11 +55,11 @@ const Login = () => {
                 <Form onSubmit ={handleSubmit}>
                     <Form.Group className="mb-3" controlId="userSignup.ControlInput1">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="input" placeholder="Ernest Hemingway" onChange={handleInput}/>
+                        <Form.Control type="input" name="username" placeholder="Ernest Hemingway" onChange={handleInput}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlID="userSignup.ControlInput2">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="hunter2" onChange={handleInput}/>
+                        <Form.Control type="password" name="password" placeholder="hunter2" onChange={handleInput}/>
                     </Form.Group>
                     <div className="subButt"><Button type="submit">Submit</Button></div>
                 </Form>

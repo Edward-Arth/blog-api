@@ -4,7 +4,8 @@ import Login from "./components/Login";
 import Posts from "./components/Posts";
 import Post from "./components/Post";
 import Authors from "./components/Authors";
-import { Route, Routes } from "react-router-dom";
+import CreatePost from "./components/CreatePost"
+import { Navigate, Route, Routes } from "react-router-dom";
 
 const App = () => {
     return (
@@ -15,6 +16,8 @@ const App = () => {
             <Route path="/api/post" element={<Post/>}/>
             <Route path="/api/posts" element={<Posts/>}/>
             <Route path="/api/authors" element={<Authors/>}/>
+            <Route path="/api/create-post" element={<CreatePost/>}/>
+            <Route path="/" element={<Navigate to="/api"/>}/>
         </Routes>
     );
 };

@@ -10,10 +10,10 @@ const BasicHeader = () => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Link to="/api/posts" className="headerButts">
-                    <Nav.Link>Posts</Nav.Link>
+                    Posts
                 </Link>
                 <Link to="/api/authors" className="headerButts">
-                    <Nav.Link>Authors</Nav.Link>
+                    Authors
                 </Link>
               </Nav>
             </Navbar.Collapse>

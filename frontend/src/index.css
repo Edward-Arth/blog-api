@@ -4,6 +4,9 @@
 
 .headerButts {
     text-decoration: none;
+    margin-right: 10px;
+    color: inherit;
+    margin-top: 2px;
 }
 
 .bubbleCon {
@@ -48,4 +51,98 @@
     text-align: center;
     margin-top: 30px;
     font-size: 150%;
+}
+
+.mapAuthors {
+    margin-top: 40px;
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: center;
+}
+
+.mapPosts {
+    margin-top: 40px;
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: center;
+}
+
+.postLinks {
+    text-decoration: none;
+}
+
+.postLinks:hover {
+    transform: scale(1.1);
+}
+
+.trendingLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.trendingLink:hover {
+    font-size: 110%;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+#authorInPosts {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.postStart {
+    margin-top: 40px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.postTitle {
+    text-align: center;
+    font-size: 150%;
+}
+
+.postAuthor {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.postContent {
+    text-indent: 45px;
+}
+
+.loadingIndic {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 200%;
+}
+
+.loadingIndic:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    -webkit-animation: ellipsis steps(4,end) 1400ms infinite;      
+    animation: ellipsis steps(4,end) 1400ms infinite;
+    content: "\2026";
+    width: 0px;
+}
+
+@keyframes ellipsis {
+    to {
+        width: 1.25em;    
+    }
+}
+  
+@-webkit-keyframes ellipsis {
+    to {
+        width: 1.25em;    
+    }
+}
+
+.loadingExplanation {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 130%;
 }

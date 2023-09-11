@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const BlogPost = require("../models/post");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -51,7 +52,7 @@ exports.user_login_post = (async(req, res) => {
     if (user) {
         const match = await bcrypt.compare(password, user.password);
         if (match) {
-            const token = jwt.sign({ id: user.id }, process.env.TOKENKEY, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id }, process.env.TOKENKEY, { expiresIn: '2h' });
             res.json({ token });
         } else {
             res.status(401).json({ message: 'No login match' });
@@ -63,8 +64,7 @@ exports.user_login_post = (async(req, res) => {
 
 exports.user_list_get = async (req, res) => {
     try {
-        const userList = await User.find({}, { _id: 0, username: 1 })
-            .sort({ name: 1 })
+        const userList = await User.find({}, 'username posts')
             .populate("posts")
             .exec();
         res.json({ userList });
