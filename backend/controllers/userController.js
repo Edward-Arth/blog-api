@@ -73,3 +73,43 @@ exports.user_list_get = async (req, res) => {
         res.status(500).json({ error: 'Server Error' });
     }
 };
+
+exports.user_likes_post = async (req, res, next) => {
+    try {
+        const tokenWithBear = req.headers.authorization;
+        const bearer = tokenWithBear.split(" ");
+        const token = bearer[1];
+        const decodedToken = await jwt.verify(token, process.env.TOKENKEY);
+        if(!decodedToken) {
+            throw "User authentication failed!";
+        }
+        const userToUpdate = await User.findByIdAndUpdate(decodedToken.id, { $push: { likes: req.params.id }});
+        if(!userToUpdate) {
+            throw "Failed to find and update user likes!";
+        } else {
+            res.json({message: "Post added to user likes!"})
+        }
+    } catch (err) {
+        return next(err);
+    };
+};
+
+exports.user_likes_get = async (req, res, next) => {
+    try {
+        const tokenWithBear = req.headers.authorization;
+        const bearer = tokenWithBear.split(" ");
+        const token = bearer[1];
+        const decodedToken = await jwt.verify(token, process.env.TOKENKEY);
+        if(!decodedToken) {
+            throw "User authentication failed!";
+        }
+        const userLikes = await User.findById(decodedToken.id, {likes:1}).populate('likes').exec();
+        if(!userLikes) {
+            throw "Failed to get user likes!";
+        } else {
+            res.json({userLikes})
+        }
+    } catch (err) {
+        return next(err);
+    };
+};

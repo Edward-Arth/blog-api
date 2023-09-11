@@ -21,6 +21,9 @@ router.get('/posts', post_controller.blogpost_list_get);
 router.get('/post/:id', post_controller.blogpost_detail_get);
 router.post('/post/:id/edit', post_controller.blogpost_edit);
 router.post('/post/:id/delete', post_controller.blogpost_delete);
+router.post('/post/:id/like', user_controller.user_likes_post);
+
+router.get('/likes', user_controller.user_likes_get);
 
 router.post('/commPost', comment_controller.comment_post);
 
