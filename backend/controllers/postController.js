@@ -94,8 +94,8 @@ exports.blogpost_detail_get = async (req, res, next) => {
     res.json({post, comments, decodedToken});
     return;
 };
-/*
-exports.blogpost_edit [
+
+exports.blogpost_edit = [
     body('title')
     .trim()
     .isLength({ min: 1 })
@@ -118,9 +118,54 @@ exports.blogpost_edit [
     })
     .withMessage("Content must be specified."),
 
-    asyncHanlder(async (req, res, next) => {
-        //you're building the edit right now, but you're wondering how you're going to handle authetification for update and delete...
-        //leading idea is to change blogpost_detail to authenticate JWT while it fetches the post, and return that to client as well--if not authenticated, no edit/delete buttons
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            res.json({ errors: errors.array() });
+            return;
+        } else {
+            try {
+                const tokenWithBear = req.headers.authorization;
+                const bearer = tokenWithBear.split(" ");
+                const token = bearer[1];
+                const decodedToken = await jwt.verify(token, process.env.TOKENKEY);
+                if (decodedToken) {
+                    const updatePost = await BlogPost 
+                        .findByIdAndUpdate(req.params.id, { 
+                            title: req.body.title, 
+                            content: req.body.content
+                        });
+                    res.json({message: "Post updated!"});
+                } else {
+                    throw "User authentication failed";
+                }
+            } catch (err) {
+                return next(err);
+            };
+        };
     })
-]
-*/
+];
+
+exports.blogpost_delete = async (req, res, next) => {
+    const tokenWithBear = req.headers.authorization;
+    const bearer = tokenWithBear.split(" ");
+    const token = bearer[1];
+    const decodedToken = await jwt.verify(token, process.env.TOKENKEY);
+    if (decodedToken) {
+        try {
+            const postToDelete = await BlogPost.findByIdAndDelete(req.params.id).exec();
+            const authorToUpdate = await User.findByIdAndUpdate(decodedToken.id, { $pull: { posts: req.params.id }});
+            if (!postToDelete) {
+                throw "Error finding and deleting post!";
+            } else if (!authorToUpdate) {
+                throw "Error finding and updating author!";
+            } else {
+                res.json({message: "Post deleted and author updated!"});
+            }
+        } catch (error) {
+            return next(error);
+        };
+    } else {
+        res.json({message: "User could not be authenticated!"});
+    };
+};
