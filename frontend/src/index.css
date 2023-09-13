@@ -101,12 +101,12 @@ p {
 
 .postTitle {
     text-align: center;
-    font-size: 150%;
+    font-size: 250%;
 }
 
 .postAuthor {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .postContent {
@@ -145,4 +145,29 @@ p {
     margin-top: 20px;
     text-align: center;
     font-size: 130%;
+}
+
+.engageButtsCon {
+    margin-left: 30%;
+    margin-right: 30%;
+    display:flex;
+    justify-content: center
+}
+
+.engageButts {
+    min-width:100px;
+}
+
+.sureCon {
+    display:flex;
+}
+
+.questionCon {
+    min-width: 100px;
+}
+
+.likeCon {
+    display:flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }

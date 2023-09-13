@@ -62,6 +62,18 @@ exports.user_login_post = (async(req, res) => {
     }
 });
 
+exports.user_get = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id, {password: 0}).exec();
+        if (!user) {
+            throw "Error finding user.";
+        }
+        res.json({user});
+    } catch(err) {
+        return next(err);
+    };
+};
+
 exports.user_list_get = async (req, res) => {
     try {
         const userList = await User.find({}, 'username posts')
@@ -92,6 +104,26 @@ exports.user_likes_post = async (req, res, next) => {
     } catch (err) {
         return next(err);
     };
+};
+
+exports.user_unlikes_post = async (req, res, next) => {
+    try {
+        const tokenWithBear = req.headers.authorization;
+        const bearer = tokenWithBear.split(" ");
+        const token = bearer[1];
+        const decodedToken = await jwt.verify(token, process.env.TOKENKEY);
+        if(!decodedToken) {
+            throw "User authentication failed!";
+        }
+        const userToUpdate = await User.findByIdAndUpdate(decodedToken.id, { $pull: { likes: req.params.id }});
+        if(!userToUpdate) {
+            throw "Failed to find and update user likes!";
+        } else {
+            res.json({message: "Post removed from user likes!"})
+        }
+    } catch (err) {
+        return next(err);
+    }
 };
 
 exports.user_likes_get = async (req, res, next) => {

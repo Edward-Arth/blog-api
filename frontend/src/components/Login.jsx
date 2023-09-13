@@ -3,8 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const Login = () => {
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const history = useNavigate();
 
@@ -21,35 +24,35 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await fetch(import.meta.env.VITE_APIKEY + "login", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+        setIsLoading(true);
 
-            if(response.ok) {
-                response.json().then(data => {
-                    if (data && data.token) {
-                        localStorage.setItem('token', data.token);
-                        history('/api/posts');
-                    } else {
-                        console.log("Data missing!")
-                    }
-                })
-            } else {
-                console.log(response);
-            }
-        } catch (error) {
-            console.error("Error", error);
+        const response = await fetch(import.meta.env.VITE_APIKEY + "login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if(response.ok) {
+            response.json().then(data => {
+                if (data && data.token) {
+                    sessionStorage.setItem('token', data.token);
+                    history('/api');
+                } else {
+                    console.log("Data missing!")
+                }
+            })
+        } else {
+            console.log(response);
         }
     };
 
     return (
         <div className="signupCon">
             <BasicHeader/>
+            {isLoading ? (<Loading/>) : (
+            <div>
             <div className="signupTitle">Log in!</div>
             <div className="formCon">
                 <Form onSubmit ={handleSubmit}>
@@ -64,6 +67,8 @@ const Login = () => {
                     <div className="subButt"><Button type="submit">Submit</Button></div>
                 </Form>
             </div>
+            </div>
+            )}
         </div>
     );
 };

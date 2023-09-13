@@ -74,6 +74,7 @@ exports.blogpost_detail_get = async (req, res, next) => {
         .findById(req.params.id)
         .populate({
             path: 'user',
+            select: '-password'
         })
         .exec();
         if (post === null) {
@@ -88,6 +89,10 @@ exports.blogpost_detail_get = async (req, res, next) => {
         })
         .exec();
     const tokenWithBear = req.headers.authorization;
+    if(!tokenWithBear) {
+        res.json({post, comments});
+        return;
+    }
     const bearer = tokenWithBear.split(" ");
     const token = bearer[1];
     const decodedToken = await jwt.verify(token, process.env.TOKENKEY);

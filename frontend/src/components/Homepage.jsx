@@ -7,7 +7,7 @@ const Homepage = () => {
     const [hasToken, setHasToken] = useState(false);
 
     const checkToken = () => {
-        const storageQuery = localStorage.getItem('token');
+        const storageQuery = sessionStorage.getItem('token');
         if (storageQuery) {
             setHasToken(true);
         }

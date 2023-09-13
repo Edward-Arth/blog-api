@@ -15,7 +15,7 @@ exports.comment_post = [
 
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
-        const { content, postId } = req.body;
+        const { content } = req.body;
         const newComm = new Comment({
             content: content,
         });
@@ -28,10 +28,16 @@ exports.comment_post = [
                 const bearer = tokenWithBear.split(" ");
                 const token = bearer[1];
                 const decodedToken = await jwt.verify(token, process.env.TOKENKEY);
+                if (!decodedToken) {
+                    throw "Error authenticating user";
+                }
                 const authorId = decodedToken.id;
                 newComm.user = authorId;
-                newComm.blogpost = postId;
+                newComm.blogpost = req.params.id;
                 const result = await newComm.save();
+                if (!result) {
+                    throw "Error creating comment";
+                }
                 res.sendStatus(200).json({ message: "Comment created!"});
             } catch (err) {
                 return next(err);

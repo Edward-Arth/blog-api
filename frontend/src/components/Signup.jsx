@@ -3,8 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const Signup = () => {
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const history = useNavigate();
 
@@ -20,6 +23,7 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         console.log(formData)
         try {
             const response = await fetch(import.meta.env.VITE_APIKEY + "signup", {
@@ -41,8 +45,8 @@ const Signup = () => {
                 if(newResponse.ok) {
                     newResponse.json().then(data => {
                         if (data && data.token) {
-                            localStorage.setItem('token', data.token);
-                            history('/api/posts');
+                            sessionStorage.setItem('token', data.token);
+                            history('/api');
                         } else {
                             console.log("Data missing!")
                         }
@@ -61,20 +65,24 @@ const Signup = () => {
     return (
         <div className="signupCon">
             <BasicHeader/>
-            <div className="signupTitle">Sign up!</div>
-            <div className="formCon">
-                <Form onSubmit ={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="userSignup.ControlInput1">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="input" name="username" placeholder="Ernest Hemingway" onChange={handleInput}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlID="userSignup.ControlInput2">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" placeholder="hunter2" onChange={handleInput}/>
-                    </Form.Group>
-                    <div className="subButt"><Button type="submit">Submit</Button></div>
-                </Form>
-            </div>
+            {isLoading ? (<Loading/>) : (
+                <div>
+                    <div className="signupTitle">Sign up!</div>
+                    <div className="formCon">
+                        <Form onSubmit ={handleSubmit}>
+                            <Form.Group className="mb-3" controlId="userSignup.ControlInput1">
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control type="input" name="username" placeholder="Ernest Hemingway" onChange={handleInput}/>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlID="userSignup.ControlInput2">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" name="password" placeholder="hunter2" onChange={handleInput}/>
+                            </Form.Group>
+                            <div className="subButt"><Button type="submit">Submit</Button></div>
+                        </Form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
