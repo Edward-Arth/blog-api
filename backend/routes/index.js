@@ -15,6 +15,7 @@ router.post('/login', user_controller.user_login_post);
 router.get('/authors', user_controller.user_list_get);
 router.get('/author/:id', user_controller.user_get);
 
+
 router.post('/post', post_controller.blogpost_post);
 
 router.get('/posts', post_controller.blogpost_list_get);
@@ -27,6 +28,7 @@ router.post('/post/:id/unlike', user_controller.user_unlikes_post);
 router.post('/post/:id/commPost', comment_controller.comment_post);
 
 router.get('/likes', user_controller.user_likes_get);
+router.get('/user-posts', user_controller.user_posts_get);
 
 
 module.exports = router;

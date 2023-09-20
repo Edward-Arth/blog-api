@@ -145,3 +145,23 @@ exports.user_likes_get = async (req, res, next) => {
         return next(err);
     };
 };
+
+exports.user_posts_get = async (req, res, next) => {
+    try {
+        const tokenWithBear = req.headers.authorization;
+        const bearer = tokenWithBear.split(" ");
+        const token = bearer[1];
+        const decodedToken = await jwt.verify(token, process.env.TOKENKEY);
+        if(!decodedToken) {
+            throw "User authentication failed!";
+        }
+        const userPosts = await User.findById(decodedToken.id, {posts:1}).populate('posts').exec();
+        if(!userPosts) {
+            throw "Failed to get user posts!";
+        } else {
+            res.json({userPosts})
+        }
+    } catch (err) {
+        return next(err);
+    };
+};
