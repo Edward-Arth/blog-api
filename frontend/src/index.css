@@ -104,17 +104,32 @@ p {
 }
 
 .postTitle {
-    text-align: center;
-    font-size: 250%;
+    text-align: left;
+    font-size: 300%;
+    font-weight: 800;
+    max-width: 600px;
+    line-height: 1.1;
 }
 
 .postAuthor {
-    text-align: center;
-    margin-bottom: 10px;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 140%;
+    max-width: 600px;
 }
 
 .postContent {
     text-indent: 45px;
+    max-width: 600px;
+    text-align: left;
+}
+
+.likeCon {
+    margin-top: 20px;
+    display:flex;
+    justify-content: left;
+    margin-bottom: 20px;
 }
 
 .loadingIndic {
@@ -152,29 +167,42 @@ p {
 }
 
 .engageButtsCon {
-    margin-left: 30%;
-    margin-right: 30%;
     display:flex;
-    justify-content: center
+    justify-content: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .engageButts {
-    min-width:100px;
+    min-width:75px;
+    font-size: 200%;
+}
+
+.engageButts:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.engageButts-container {
+    margin-top: 10px;
+    display:flex;
 }
 
 .sureCon {
+    position: absolute;
+    background-color: white;
     display:flex;
+    flex-direction: column;
+    align-items: left;
+    width:90%;
+    height:100%;
 }
 
 .questionCon {
     min-width: 100px;
+    font-size: 200%;
 }
 
-.likeCon {
-    display:flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
 
 .mapLikes {
     margin-top: 40px;
@@ -186,8 +214,47 @@ p {
 .liked-post-links {
     text-decoration: none;
     color: black;
+    font-weight:100;
 }
 
 .liked-post-links:hover {
     font-size: 105%;
+}
+
+.postComments {
+    max-width: 600px;
+}
+
+.comments-ul {
+    list-style-type: none;
+    padding: 0;
+    display:flex;
+    flex-direction: column;
+}
+
+.comments-li {
+    margin-bottom: 25px;
+    outline-style: solid;
+    outline-width: 1px;
+}
+
+.commentUser {
+    outline-style: solid;
+    outline-width: 1px;
+    font-size: 140%;
+}
+
+.commentUser, .commentContent {
+    padding: 10px;
+}
+
+.commentForm {
+    max-width: 600px;
+    margin-bottom: 10%;
+}
+
+.comments-header {
+    font-size: 200%;
+    text-align: left;
+    margin-bottom: 5%;
 }

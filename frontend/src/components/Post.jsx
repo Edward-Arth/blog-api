@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
+import CommentForm from "./Comment";
+import { AiFillEdit, AiFillDelete, AiFillLike, AiOutlineLike  } from 'react-icons/ai';
 
 const Post = () => {
     const navigate = useNavigate();
@@ -154,37 +156,40 @@ const Post = () => {
                     {blogpost.post.user.username}
                 </div>
 
+                <div className="postContent">
+                    {blogpost.post.content}
+                </div>
+
                 {blogpost.decodedToken ? (
                     blogpost.post.user._id === blogpost.decodedToken.id ? (
                         <div className="engageButtsCon">
-                            <Button className="engageButts" variant="dark" onClick={editOnClick}>Edit</Button>
+                            <AiFillEdit className="engageButts" onClick={editOnClick}>Edit</AiFillEdit>
                             {checkDelete ? 
-                                (<div className="sureCon"><div className="questionCon">Are you sure?</div><Button className="engageButts" variant="danger" onClick={handleDelete}>Yes</Button><Button className="engageButts" variant="dark" onClick={() => setCheckDelete(false)}>No</Button></div>) 
+                                (<div className="sureCon"><div className="questionCon">Delete?</div><div className="engageButts-container"><div className="engageButts" onClick={handleDelete}>Yes</div><div className="engageButts" onClick={() => setCheckDelete(false)}>No</div></div></div>) 
                                 : 
-                                (<Button className="engageButts" variant="dark" onClick={() => setCheckDelete(true)}>Delete</Button>)}
+                                (<AiFillDelete className="engageButts" onClick={() => setCheckDelete(true)}>Delete</AiFillDelete>)}
                         </div>
                     ) : (
                         liked ? 
                         <div className="likeCon">
-                            <Button className="engageButts" onClick={unlikeOnClick}>Unlike</Button>
+                            <AiFillLike className="engageButts" onClick={unlikeOnClick}/>
                         </div>
                         :
                         <div className="likeCon">
-                            <Button className="engageButts" onClick={likeOnClick}>Like</Button>
+                            <AiOutlineLike className="engageButts" onClick={likeOnClick}/>
                         </div> 
                     )
                 ) : null}
 
-                <div className="postContent">
-                    {blogpost.post.content}
-                </div>
                 <div className="postComments">
-                    <ul>
+                    <div className="comments-header">Comments</div>
+                    <ul className="comments-ul">
                         {blogpost.comments.map(comment => (
-                            <li key={comment.id}>{comment.content}{comment.user.username}</li>
+                            <li className="comments-li" key={comment.id}><div className="commentUser">{comment.user.username}</div><div className="commentContent">{comment.content}</div></li>
                         ))}
                     </ul>
                 </div>
+                {sessionStorage.getItem('token') ? (<CommentForm postId={postId.current}/>) : null}
             </div>
                 )
             ) : null }

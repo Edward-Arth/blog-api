@@ -6,6 +6,12 @@ import { useState, useEffect } from "react";
 const Homepage = () => {
     const [hasToken, setHasToken] = useState(false);
 
+    const wakeupCall = async () => {
+        const wakeup = await fetch(import.meta.env.VITE_APIKEY)
+        const wakeupMessage = await wakeup.json();
+        console.log(wakeupMessage.message);
+    }
+
     const checkToken = () => {
         const storageQuery = sessionStorage.getItem('token');
         if (storageQuery) {
@@ -16,6 +22,7 @@ const Homepage = () => {
 
     useEffect(() => {
         checkToken();
+        wakeupCall();
     }, []);
 
     return (

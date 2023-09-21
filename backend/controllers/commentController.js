@@ -38,7 +38,7 @@ exports.comment_post = [
                 if (!result) {
                     throw "Error creating comment";
                 }
-                res.sendStatus(200).json({ message: "Comment created!"});
+                res.json({ message: "Comment created!"});
             } catch (err) {
                 return next(err);
             };
