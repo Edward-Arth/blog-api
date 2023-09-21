@@ -11,7 +11,13 @@ exports.comment_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage("Content must be specified."),
+    .withMessage("Content must be specified.")
+    .customSanitizer((value) => {
+        return value.replace(/'/g, "'");
+    })
+    .customSanitizer((value) => {
+        return value.replace(/\\"/g, '"');
+    }),
 
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
