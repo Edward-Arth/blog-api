@@ -20,7 +20,7 @@ const BasicHeader = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/api">Epiphany</Navbar.Brand>
+        <Link to="/api" className="navbar-brand"><Navbar.Brand>Epiphany</Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
