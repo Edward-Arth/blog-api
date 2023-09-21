@@ -36,7 +36,7 @@ const CommentForm = (postId) => {
         <Form onSubmit ={handleSubmit} className='commentForm'>
             <Form.Group className="mb-3" controlId="createComm.ControlInput1">
                 <Form.Label>Comment</Form.Label>
-                <Form.Control as="textarea" name="content" placeholder="This post gave me an epiphany..." onChange={handleInput}/>
+                <Form.Control as="textarea" rows={4} name="content" placeholder="This post gave me an epiphany..." onChange={handleInput}/>
             </Form.Group>
             <div className="subButt"><Button type="submit">Submit</Button></div>
         </Form>

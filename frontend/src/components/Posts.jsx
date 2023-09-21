@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Loading from './Loading'
 import { AiFillHeart } from 'react-icons/ai';
+import he from "he";
 
 const Posts = () => {
     const [blogposts, setBlogposts] = useState([]);
@@ -59,7 +60,7 @@ const Posts = () => {
                     {blogposts.map((blogpost) => (
                       <Link key={blogpost._id} to={`/api/post/?id=${blogpost._id}`} className="postLinks">
                         <ListGroup.Item>
-                          {blogpost.title}
+                          {he.decode(blogpost.title)}
                           <p><div id="authorInPosts">{blogpost.user.username}</div></p>
                           {hearts.current.includes(blogpost._id) ? (<AiFillHeart/>) : (null)}
                         </ListGroup.Item>

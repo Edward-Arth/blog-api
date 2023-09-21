@@ -67,7 +67,7 @@ const CreatePost = () => {
                         </Form.Group>
                         <Form.Group className="mb-3" controlID="createPost.ControlInput2">
                             <Form.Label>Post</Form.Label>
-                            <Form.Control as="textarea" name="content" rows={5} placeholder="It all started when I was a boy..." onChange={handleInput}/>
+                            <Form.Control as="textarea" name="content" rows={8} placeholder="It all started when I was a boy..." onChange={handleInput}/>
                         </Form.Group>
                         <div className="subButt"><Button type="submit">Submit</Button></div>
                     </Form>

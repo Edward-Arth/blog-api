@@ -24,7 +24,6 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        console.log(formData)
         try {
             const response = await fetch(import.meta.env.VITE_APIKEY + "signup", {
                 method: 'POST',
@@ -52,10 +51,11 @@ const Signup = () => {
                         }
                     })
                 } else (
-                    console.log(newResponse)
+                    history('/api/login')
                 )
             } else {
-                console.log(response);
+                history('/api/signup');
+                window.alert("Something went wrong. Please try again!")
             }
         } catch (error) {
             console.error("Error", error);

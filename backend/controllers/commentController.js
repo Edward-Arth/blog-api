@@ -10,12 +10,6 @@ exports.comment_post = [
     body('content')
     .trim()
     .isLength({ min: 1 })
-    .customSanitizer((value) => {
-        return value.replace(/'/g, "'");
-    })
-    .customSanitizer((value) => {
-        return value.replace(/\\"/g, '"');
-    })
     .escape()
     .withMessage("Content must be specified."),
 

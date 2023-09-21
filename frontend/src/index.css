@@ -223,6 +223,7 @@ p {
 
 .postComments {
     max-width: 600px;
+    padding:1px;
 }
 
 .comments-ul {

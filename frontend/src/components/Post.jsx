@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import CommentForm from "./Comment";
 import { AiFillEdit, AiFillDelete, AiFillLike, AiOutlineLike  } from 'react-icons/ai';
+import he from "he";
 
 const Post = () => {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Post = () => {
                 },
             });
 
-            const postData = await postResponse.json();
+            const postData = await postResponse.json()
             setBlogpost(postData);
             setFormData({title: postData.post.title, content: postData.post.content});
             blogpostData = postData;
@@ -46,13 +47,9 @@ const Post = () => {
                 setLiked(true);
             }
         } else {
-            await fetch(import.meta.env.VITE_APIKEY + `post/${postId.current}`)
-            .then(response => {
-                return response.json()
-            })
-            .then(data => {
-                setBlogpost(data)
-            });
+            const response = await fetch(import.meta.env.VITE_APIKEY + `post/${postId.current}`)
+            const postData = await response.json();
+            setBlogpost(postData);
         }
     };
 
@@ -150,13 +147,13 @@ const Post = () => {
                 ) : (
             <div className="postStart">
                 <div className="postTitle">
-                    {blogpost.post.title}
+                    {he.decode(blogpost.post.title)}
                 </div>
                 <div className="postAuthor">
                     {blogpost.post.user.username}
                 </div>
 
-                <div className="postContent" dangerouslySetInnerHTML={{ __html: blogpost.post.content.replace(/\n/g, '<br>') }}></div>
+                <div className="postContent" dangerouslySetInnerHTML={{ __html: he.decode(blogpost.post.content.replace(/\n/g, '<br>')) }}></div>
 
                 {blogpost.decodedToken ? (
                     blogpost.post.user._id === blogpost.decodedToken.id ? (
@@ -183,7 +180,7 @@ const Post = () => {
                     <div className="comments-header">Comments</div>
                     <ul className="comments-ul">
                         {blogpost.comments.map(comment => (
-                            <li className="comments-li" key={comment.id}><div className="commentUser">{comment.user.username}</div><div className="commentContent">{comment.content}</div></li>
+                            <li className="comments-li" key={comment.id}><div className="commentUser">{comment.user.username}</div><div className="commentContent">{he.decode(comment.content)}</div></li>
                         ))}
                     </ul>
                 </div>
