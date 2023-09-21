@@ -156,9 +156,7 @@ const Post = () => {
                     {blogpost.post.user.username}
                 </div>
 
-                <div className="postContent">
-                    {blogpost.post.content}
-                </div>
+                <div className="postContent" dangerouslySetInnerHTML={{ __html: blogpost.post.content.replace(/\n/g, '<br>') }}></div>
 
                 {blogpost.decodedToken ? (
                     blogpost.post.user._id === blogpost.decodedToken.id ? (

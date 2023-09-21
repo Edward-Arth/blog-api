@@ -159,6 +159,7 @@ exports.blogpost_delete = async (req, res, next) => {
     if (decodedToken) {
         try {
             const postToDelete = await BlogPost.findByIdAndDelete(req.params.id).exec();
+            const commentsToDelete = await Comment.deleteMany({ blogpost: req.params.id }).exec()
             const authorToUpdate = await User.findByIdAndUpdate(decodedToken.id, { $pull: { posts: req.params.id }});
             if (!postToDelete) {
                 throw "Error finding and deleting post!";
