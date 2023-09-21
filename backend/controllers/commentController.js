@@ -10,14 +10,14 @@ exports.comment_post = [
     body('content')
     .trim()
     .isLength({ min: 1 })
-    .escape()
-    .withMessage("Content must be specified.")
     .customSanitizer((value) => {
         return value.replace(/'/g, "'");
     })
     .customSanitizer((value) => {
         return value.replace(/\\"/g, '"');
-    }),
+    })
+    .escape()
+    .withMessage("Content must be specified."),
 
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
