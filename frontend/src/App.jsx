@@ -6,6 +6,8 @@ import Post from "./components/Post";
 import Authors from "./components/Authors";
 import CreatePost from "./components/CreatePost"
 import { Navigate, Route, Routes } from "react-router-dom";
+import MyLikes from "./components/MyLikes";
+import MyPosts from "./components/MyPosts";
 
 const App = () => {
     return (
@@ -18,6 +20,8 @@ const App = () => {
             <Route path="/api/authors" element={<Authors/>}/>
             <Route path="/api/create-post" element={<CreatePost/>}/>
             <Route path="/" element={<Navigate to="/api"/>}/>
+            <Route path="/api/my-likes" element={<MyLikes/>}/>
+            <Route path="/api/my-posts" element={<MyPosts/>}/>
         </Routes>
     );
 };

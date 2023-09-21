@@ -1,26 +1,46 @@
 import BasicHeader from "./Header";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Loading from './Loading'
+import { AiFillHeart } from 'react-icons/ai';
 
 const Posts = () => {
     const [blogposts, setBlogposts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const hearts = useRef([]);
 
     const fetchPosts = async () => {
         setIsLoading(true);
-        await fetch(import.meta.env.VITE_APIKEY + "posts")
-        .then(response => {
-            return response.json()
-        })
-        .then(data => {
-            console.log(data.blogpostList);
-            setBlogposts(data.blogpostList)
-        })
-        .finally(() => {
+        if(sessionStorage.getItem('token')) {
+            const likesGet = await fetch(import.meta.env.VITE_APIKEY + 'likes', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                },
+            });
+            const postsGet = await fetch(import.meta.env.VITE_APIKEY + "posts");
+
+            const likesData = await likesGet.json();
+            const postsData = await postsGet.json();
+
+            hearts.current = [];
+            likesData.userLikes.likes.forEach(like => {
+                hearts.current.push(like._id);
+            });
+
+            setBlogposts(postsData.blogpostList);
+
             setIsLoading(false);
-        })
+
+            return;
+        } else {
+            const postsGet = await fetch(import.meta.env.VITE_APIKEY + "posts");
+            const postsData = await postsGet.json();
+            setBlogposts(postsData.blogpostList);
+            setIsLoading(false);
+            return;
+        }
     };
 
     useEffect(() => {
@@ -41,6 +61,7 @@ const Posts = () => {
                         <ListGroup.Item>
                           {blogpost.title}
                           <p><div id="authorInPosts">{blogpost.user.username}</div></p>
+                          {hearts.current.includes(blogpost._id) ? (<AiFillHeart/>) : (null)}
                         </ListGroup.Item>
                       </Link>
                     ))}

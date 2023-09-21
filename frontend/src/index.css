@@ -4,9 +4,13 @@
 
 .headerButts {
     text-decoration: none;
-    margin-right: 10px;
+    margin-right: 15px;
     color: inherit;
     margin-top: 2px;
+}
+
+.headerButts:hover {
+    text-decoration: underline;
 }
 
 .bubbleCon {
@@ -72,7 +76,7 @@
 }
 
 .postLinks:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .trendingLink {
@@ -170,4 +174,20 @@ p {
     display:flex;
     justify-content: center;
     margin-bottom: 20px;
+}
+
+.mapLikes {
+    margin-top: 40px;
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: center;
+}
+
+.liked-post-links {
+    text-decoration: none;
+    color: black;
+}
+
+.liked-post-links:hover {
+    font-size: 105%;
 }
