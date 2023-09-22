@@ -122,7 +122,6 @@ p {
 .postContent {
     max-width: 600px;
     text-align: left;
-    margin-bottom: 50px;
 }
 
 .likeCon {
@@ -258,4 +257,12 @@ p {
     font-size: 140%;
     text-align: left;
     margin-bottom: 5%;
+    margin-top: 50px;
+}
+
+.edit-form {
+    max-width: 600px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 40px;
 }

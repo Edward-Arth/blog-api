@@ -92,23 +92,11 @@ exports.blogpost_edit = [
     body('title')
     .trim()
     .isLength({ min: 1 })
-    .customSanitizer((value) => {
-        return value.replace(/'/g, "'");
-    })
-    .customSanitizer((value) => {
-        return value.replace(/\\"/g, '"');
-    })
     .withMessage("Title must be specified."),
     
     body('content')
     .trim()
     .isLength({ min: 1 })
-    .customSanitizer((value) => {
-        return value.replace(/'/g, "'");
-    })
-    .customSanitizer((value) => {
-        return value.replace(/\\"/g, '"');
-    })
     .withMessage("Content must be specified."),
 
     asyncHandler(async (req, res, next) => {

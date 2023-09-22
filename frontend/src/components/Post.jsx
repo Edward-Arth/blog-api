@@ -133,7 +133,7 @@ const Post = () => {
             <BasicHeader/>
             {blogpost ? (
                 editMode ? (
-                    <Form onSubmit ={handleSubmit}>
+                    <Form className="edit-form"onSubmit ={handleSubmit}>
                         <Form.Group className="mb-3" controlId="editPost.ControlInput1">
                             <Form.Label>Title</Form.Label>
                             <Form.Control type="input" name="title" value={formData.title} onChange={handleInput}/>
