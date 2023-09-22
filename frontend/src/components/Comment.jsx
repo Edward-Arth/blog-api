@@ -26,7 +26,7 @@ const CommentForm = (postId) => {
             body: JSON.stringify(formData),
         });
         if (commentResponse.ok) {
-            navigate(0)
+            navigate(`/api/post/${postId.postId}`)
         } else {
             console.error("Server response bad");
         }
