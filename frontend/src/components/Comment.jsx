@@ -1,11 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const CommentForm = (postId) => {
-    const navigate = useNavigate();
-
     const [formData, setFormData] = useState({
         content: ''
     });
@@ -26,7 +23,7 @@ const CommentForm = (postId) => {
             body: JSON.stringify(formData),
         });
         if (commentResponse.ok) {
-            navigate(`/api/post/${postId.postId}`)
+            window.location.reload();
         } else {
             console.error("Server response bad");
         }
