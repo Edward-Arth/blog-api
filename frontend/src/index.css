@@ -120,9 +120,9 @@ p {
 }
 
 .postContent {
-    text-indent: 45px;
     max-width: 600px;
     text-align: left;
+    margin-bottom: 50px;
 }
 
 .likeCon {
@@ -242,7 +242,7 @@ p {
 .commentUser {
     outline-style: solid;
     outline-width: 1px;
-    font-size: 140%;
+    font-size: 120%;
 }
 
 .commentUser, .commentContent {
@@ -255,7 +255,7 @@ p {
 }
 
 .comments-header {
-    font-size: 200%;
+    font-size: 140%;
     text-align: left;
     margin-bottom: 5%;
 }
