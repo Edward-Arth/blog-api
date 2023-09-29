@@ -1,4 +1,4 @@
-# Try it [here](https://epiphany-blog.netlify.app/)
+# Try it [here!](https://epiphany-blog.netlify.app/)
 
 # Overview
 
