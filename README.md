@@ -16,3 +16,4 @@
 - dotenv to hide API and database keys
 - bcryptjs for password encryption
 - JSON Web Tokens and Passport for user authentication
+
