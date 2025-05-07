@@ -30,27 +30,32 @@ const Homepage = () => {
             <BasicHeader />
             {hasToken ? (
                 <div className="centerCon">
-                    <div className="bubbleCon">Welcome to the React client for my blog API! This is my homepage. Please click a link in the header to see blog posts and authors, fetched from my database with Express.</div>
+                    <div className="bubbleCon">Welcome to Epiphany!</div>
                     <div className="buttonCaption">
-                        Alternatively, you are signed in, so feel free to make your own post!
+                        <div className="buttonCon">
+                            <Link to="/api/posts">
+                                <Button variant="dark" className="homeButts">Read posts</Button>
+                            </Link>
+                        </div>
+                        or
                         <div className="buttonCon">
                             <Link to="/api/create-post">
-                                <Button variant="dark" className="homeButts">Post</Button>
+                                <Button variant="dark" className="homeButts">Write a post</Button>
                             </Link>
                         </div>
                     </div>
             </div>
             ) : (
                 <div className="centerCon">
-                    <div className="bubbleCon">Welcome to the React client for my blog API! This is my homepage. Please click a link in the header to see blog posts and authors, fetched from my database with Express.</div>
+                    <div className="bubbleCon">Welcome to Epiphany!</div>
                     <div className="buttonCaption">
-                        Alternatively, sign up or log in to make your own posts and become an author!
                         <div className="buttonCon">
-                            <Link to="/api/signup">
-                                <Button variant="dark" className="homeButts">Sign up</Button>
+                            <Link to="/api/posts">
+                                <Button variant="dark" className="homeButts">Read posts</Button>
                             </Link>
-                            <Link to="/api/login">
-                            <Button variant="dark" className="homeButts">Log in</Button>
+                            or
+                            <Link to="/api/create-post">
+                                <Button variant="dark" className="homeButts">Sign up</Button>
                             </Link>
                         </div>
                     </div>

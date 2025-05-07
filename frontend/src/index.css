@@ -14,27 +14,27 @@
 }
 
 .bubbleCon {
-    margin-top: 8%;
-    margin-left: 25%;
-    margin-right: 25%;
-    font-size: 150%;
+    font-size: 30px;
     text-align: center;
+    margin-top:50px;
+}
+
+.buttonCon {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    column-gap:20px;
+    margin-top:20px;
 }
 
 .buttonCaption {
-    margin-top: 40px;
-    margin-left: 25%;
-    margin-right: 25%;
-    font-size: 150%;
     display:flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
 }
 
 .homeButts {
-    width:100px;
-    margin: 15px;
+    width:150px;
 }
 
 .formCon {
@@ -57,18 +57,12 @@
     font-size: 150%;
 }
 
-.mapAuthors {
-    margin-top: 40px;
-    margin-left: 30%;
-    margin-right: 30%;
-    text-align: center;
-}
-
+.mapAuthors,
 .mapPosts {
-    margin-top: 40px;
-    margin-left: 30%;
-    margin-right: 30%;
     text-align: center;
+    max-width:650px;
+    margin:0 auto;
+    padding:20px;
 }
 
 .postLinks {
