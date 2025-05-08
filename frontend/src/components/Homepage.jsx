@@ -54,7 +54,7 @@ const Homepage = () => {
                                 <Button variant="dark" className="homeButts">Read posts</Button>
                             </Link>
                             or
-                            <Link to="/api/create-post">
+                            <Link to="/api/signup">
                                 <Button variant="dark" className="homeButts">Sign up</Button>
                             </Link>
                         </div>
